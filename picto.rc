@@ -1,0 +1,145 @@
+#pragma code_page(65001)
+#include "Resource.h"
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include <windows.h>
+#include <commctrl.h>
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+IDI_PICTO       ICON         "picto.ico"
+IDI_SMALL       ICON         "small.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+STRINGTABLE
+BEGIN
+    IDS_APP_TITLE       "고성능 다중스레드 사진/동영상 정리 도구"
+    IDC_PICTO           "PICTO_ORGANIZER"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// GPS Map Dialog
+//
+IDD_GPSMAP DIALOGEX 0, 0, 440, 310
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "사진 GPS 위치 보기"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "", IDC_TAB_GPS, "SysTabControl32", WS_TABSTOP, 7, 7, 426, 296
+
+    // Single File Tab Controls
+    GROUPBOX        "단일 파일 GPS 정보", IDC_GPS_SINGLE_GRP, 15, 30, 410, 260
+    LTEXT           "사진 파일:", IDC_STATIC, 25, 50, 45, 12
+    EDITTEXT        IDC_GPS_SINGLE_EDIT, 75, 48, 275, 14, ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "사진 선택", IDC_GPS_SINGLE_BROWSE, 355, 47, 60, 15
+    LTEXT           "GPS 정보: 없음", IDC_GPS_SINGLE_INFO, 25, 75, 390, 16
+    PUSHBUTTON      "지도에서 보기", IDC_GPS_SINGLE_VIEW, 25, 100, 100, 20, WS_DISABLED
+
+    // Batch Tab Controls
+    GROUPBOX        "폴더 내 사진 GPS 일괄 검색", IDC_GPS_BATCH_GRP, 15, 30, 410, 260
+    LTEXT           "폴더 경로:", IDC_STATIC, 25, 50, 45, 12
+    EDITTEXT        IDC_GPS_BATCH_EDIT, 75, 48, 275, 14, ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "폴더 선택", IDC_GPS_BATCH_BROWSE, 355, 47, 60, 15
+    LTEXT           "GPS 정보가 있는 파일 목록:", IDC_STATIC, 25, 70, 150, 10
+    CONTROL         "", IDC_GPS_BATCH_LIST, "SysListView32", LVS_REPORT | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 25, 85, 390, 170
+    PUSHBUTTON      "GPS 정보 스캔", IDC_GPS_BATCH_SCAN, 25, 262, 100, 20
+    PUSHBUTTON      "모두 지도에서 보기", IDC_GPS_BATCH_VIEWALL, 135, 262, 110, 20, WS_DISABLED
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Resized Image Cleaner Dialog
+//
+IDD_RESIZED_CLEANER DIALOGEX 0, 0, 680, 400
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX
+CAPTION "축소(리사이즈) 사진 탐색 및 안전 삭제 (stb_image & WIC pHash)"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "탐색 대상 폴더:", IDC_STATIC, 10, 12, 55, 12
+    EDITTEXT        IDC_RESIZED_EDIT_FOLDER, 68, 10, 240, 14, ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "폴더 선택", IDC_RESIZED_BTN_BROWSE, 312, 9, 50, 15
+    PUSHBUTTON      "🔍 탐색 시작", IDC_RESIZED_BTN_SCAN, 366, 9, 55, 15
+
+    LTEXT           "상태: 대기 중", IDC_RESIZED_STATIC_STATUS, 10, 30, 350, 10
+    PUSHBUTTON      "중지", IDC_RESIZED_BTN_STOP, 366, 27, 55, 14, WS_DISABLED
+    CONTROL         "", IDC_RESIZED_PROGRESS, "msctls_progress32", PBS_SMOOTH, 10, 43, 411, 12
+
+    LTEXT           "🔍 목록 검색:", IDC_RESIZED_LBL_FILTER, 10, 58, 48, 12
+    EDITTEXT        IDC_RESIZED_EDIT_FILTER, 62, 56, 310, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "검색", IDC_RESIZED_BTN_SEARCH, 376, 56, 45, 14
+
+    LTEXT           "🚫 제외 폴더:", IDC_RESIZED_LBL_EXCLUDE, 10, 74, 48, 12
+    EDITTEXT        IDC_RESIZED_EDIT_EXCLUDE, 62, 72, 359, 14, ES_AUTOHSCROLL
+
+    CONTROL         "", IDC_RESIZED_LIST, "SysListView32", LVS_REPORT | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 10, 90, 411, 252
+
+    LTEXT           "발견된 축소본: 0개 | 선택됨: 0개 (절약 가능 공간: 0 KB)", IDC_RESIZED_STATIC_SUMMARY, 10, 348, 411, 12
+
+    PUSHBUTTON      "전체 선택", IDC_RESIZED_BTN_SELECT_ALL, 10, 368, 45, 18
+    PUSHBUTTON      "전체 해제", IDC_RESIZED_BTN_DESELECT, 58, 368, 45, 18
+    PUSHBUTTON      "축소본 열기", IDC_RESIZED_BTN_OPEN_RESIZED, 106, 368, 55, 18
+    PUSHBUTTON      "원본 열기", IDC_RESIZED_BTN_OPEN_ORIGINAL, 164, 368, 50, 18
+    PUSHBUTTON      "🗑️ 선택한 축소본 안전 삭제 (휴지통)", IDC_RESIZED_BTN_DELETE, 218, 368, 145, 18, WS_DISABLED
+    PUSHBUTTON      "🗖 전체화면", IDC_RESIZED_BTN_FULLSCREEN, 366, 368, 55, 18
+    PUSHBUTTON      "닫기", IDCANCEL, 424, 368, 50, 18
+
+    // Right-side Preview Area
+    GROUPBOX        "사진 미리보기 (선택 항목)", IDC_RESIZED_PREVIEW_GRP, 430, 10, 240, 376
+    CONTROL         "", IDC_RESIZED_PREVIEW_RESIZED, "Static", SS_OWNERDRAW | WS_CHILD | WS_VISIBLE, 440, 28, 220, 150
+    LTEXT           "축소본: 선택 안 됨", IDC_RESIZED_LBL_RESIZED_INFO, 440, 182, 220, 12, SS_LEFTNOWORDWRAP
+    CONTROL         "", IDC_RESIZED_PREVIEW_ORIG, "Static", SS_OWNERDRAW | WS_CHILD | WS_VISIBLE, 440, 202, 220, 150
+    LTEXT           "원본: 선택 안 됨", IDC_RESIZED_LBL_ORIG_INFO, 440, 356, 220, 12, SS_LEFTNOWORDWRAP
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Duplicate File Cleaner Dialog
+//
+IDD_DUP_CLEANER DIALOGEX 0, 0, 680, 400
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX
+CAPTION "중복 파일 탐색 및 안전 삭제 (초고속 RAM 3단계 제로카피 MMF)"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "탐색 대상 폴더:", IDC_STATIC, 10, 12, 55, 12
+    EDITTEXT        IDC_DUP_EDIT_FOLDER, 68, 10, 240, 14, ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "폴더 선택", IDC_DUP_BTN_BROWSE, 312, 9, 50, 15
+    PUSHBUTTON      "🔍 탐색 시작", IDC_DUP_BTN_SCAN, 366, 9, 55, 15
+
+    LTEXT           "상태: 대기 중", IDC_DUP_STATIC_STATUS, 10, 30, 350, 10
+    PUSHBUTTON      "중지", IDC_DUP_BTN_STOP, 366, 27, 55, 14, WS_DISABLED
+    CONTROL         "", IDC_DUP_PROGRESS, "msctls_progress32", PBS_SMOOTH, 10, 43, 411, 12
+
+    LTEXT           "🔍 목록 검색:", IDC_DUP_LBL_FILTER, 10, 58, 48, 12
+    EDITTEXT        IDC_DUP_EDIT_FILTER, 62, 56, 310, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "검색", IDC_DUP_BTN_SEARCH, 376, 56, 45, 14
+
+    LTEXT           "🚫 제외 폴더:", IDC_DUP_LBL_EXCLUDE, 10, 74, 48, 12
+    EDITTEXT        IDC_DUP_EDIT_EXCLUDE, 62, 72, 359, 14, ES_AUTOHSCROLL
+
+    CONTROL         "", IDC_DUP_LIST, "SysListView32", LVS_REPORT | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 10, 90, 411, 252
+
+    LTEXT           "발견된 중복 파일: 0개 | 선택됨: 0개 (절약 가능 공간: 0 KB)", IDC_DUP_STATIC_SUMMARY, 10, 348, 411, 12
+
+    PUSHBUTTON      "전체 선택", IDC_DUP_BTN_SELECT_ALL, 10, 368, 45, 18
+    PUSHBUTTON      "전체 해제", IDC_DUP_BTN_DESELECT, 58, 368, 45, 18
+    PUSHBUTTON      "중복본 열기", IDC_DUP_BTN_OPEN_DUP, 106, 368, 55, 18
+    PUSHBUTTON      "기준 원본 열기", IDC_DUP_BTN_OPEN_ORIG, 164, 368, 50, 18
+    PUSHBUTTON      "🗑️ 선택한 중복 파일 안전 삭제 (휴지통)", IDC_DUP_BTN_DELETE, 218, 368, 145, 18, WS_DISABLED
+    PUSHBUTTON      "🗖 전체화면", IDC_DUP_BTN_FULLSCREEN, 366, 368, 55, 18
+    PUSHBUTTON      "닫기", IDCANCEL, 424, 368, 50, 18
+
+    // Right-side Preview Area
+    GROUPBOX        "파일 미리보기 (중복본 vs 기준 원본)", IDC_DUP_PREVIEW_GRP, 430, 10, 240, 376
+    CONTROL         "", IDC_DUP_PREVIEW_DUP, "Static", SS_OWNERDRAW | WS_CHILD | WS_VISIBLE, 440, 28, 220, 150
+    LTEXT           "중복본: 선택 안 됨", IDC_DUP_LBL_DUP_INFO, 440, 182, 220, 12, SS_LEFTNOWORDWRAP
+    CONTROL         "", IDC_DUP_PREVIEW_ORIG, "Static", SS_OWNERDRAW | WS_CHILD | WS_VISIBLE, 440, 202, 220, 150
+    LTEXT           "기준 원본: 선택 안 됨", IDC_DUP_LBL_ORIG_INFO, 440, 356, 220, 12, SS_LEFTNOWORDWRAP
+END
