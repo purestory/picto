@@ -20,7 +20,7 @@ IDI_SMALL       ICON         "small.ico"
 //
 STRINGTABLE
 BEGIN
-    IDS_APP_TITLE       "Picto v1.0.1 - 고성능 사진/동영상 정리 & 미디어 클리너"
+    IDS_APP_TITLE       "Picto v1.0.2 - 고성능 사진/동영상 정리 & 미디어 클리너"
     IDC_PICTO           "PICTO_ORGANIZER"
 END
 
