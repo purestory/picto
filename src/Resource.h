@@ -26,6 +26,9 @@
 #define IDC_CHK_COPY_FILES          1022
 #define IDC_CHK_REMOVE_DUPS         1023
 #define IDC_CHK_REMOVE_RESIZED      1024
+#define IDC_STATIC_LBL_FOLDER_FORMAT 1025
+#define IDC_COMBO_FOLDER_FORMAT     1026
+#define IDC_STATIC_FOLDER_PREVIEW   1027
 
 #define IDC_BTN_START               1030
 #define IDC_BTN_CANCEL              1031
@@ -52,6 +55,10 @@
 #define IDC_GPS_SINGLE_BROWSE       1064
 #define IDC_GPS_SINGLE_INFO         1065
 #define IDC_GPS_SINGLE_VIEW         1066
+#define IDC_GPS_BTN_CLEAR           1066
+#define IDC_GPS_SINGLE_LBL_FILE     1067
+#define IDC_GPS_BATCH_LBL_FOLDER    1068
+#define IDC_GPS_BATCH_LBL_LIST      1069
 
 #define IDC_GPS_BATCH_GRP           1070
 #define IDC_GPS_BATCH_EDIT          1071
@@ -59,6 +66,9 @@
 #define IDC_GPS_BATCH_LIST          1073
 #define IDC_GPS_BATCH_SCAN          1074
 #define IDC_GPS_BATCH_VIEWALL       1075
+#define IDC_GPS_BATCH_STOP          1076
+#define IDC_GPS_BATCH_PROGRESS      1077
+#define IDC_GPS_BATCH_STATUS        1078
 
 // Resized Image Cleaner Dialog
 #define IDD_RESIZED_CLEANER         1080
@@ -86,6 +96,8 @@
 #define IDC_RESIZED_BTN_SEARCH      1101
 #define IDC_RESIZED_LBL_EXCLUDE     1102
 #define IDC_RESIZED_EDIT_EXCLUDE    1103
+#define IDC_RESIZED_LBL_THREADS     1104
+#define IDC_RESIZED_COMBO_THREADS   1105
 
 // Duplicate File Cleaner Dialog
 #define IDD_DUP_CLEANER             1110
@@ -113,7 +125,67 @@
 #define IDC_DUP_BTN_SEARCH          1131
 #define IDC_DUP_LBL_EXCLUDE         1132
 #define IDC_DUP_EDIT_EXCLUDE        1133
+#define IDC_DUP_LBL_THREADS         1134
+#define IDC_DUP_COMBO_THREADS       1135
+
+// GPS Map Preview Controls
+#define IDC_GPS_PREVIEW_GRP         1140
+#define IDC_GPS_PREVIEW_PIC         1141
+#define IDC_GPS_PREVIEW_INFO        1142
+#define IDC_GPS_PREVIEW_COORD       1143
+#define IDC_GPS_PREVIEW_PATH        1144
+#define IDC_GPS_PREVIEW_BTN_MAP     1145
+#define IDC_GPS_LBL_THREADS         1146
+#define IDC_GPS_COMBO_THREADS       1147
+
+// Main Window Action Button
+#define IDC_BTN_EXIF_EDIT           1035
+
+// EXIF Date Editor Dialog
+#define IDD_EXIF_EDITOR             1150
+#define IDC_EXIF_LIST               1151
+#define IDC_EXIF_PREVIEW_GRP        1152
+#define IDC_EXIF_PREVIEW_PIC        1153
+#define IDC_EXIF_PREVIEW_INFO       1154
+#define IDC_EXIF_GRP_OPTIONS        1155
+#define IDC_EXIF_RADIO_EXACT        1156
+#define IDC_EXIF_EDIT_DATE          1157
+#define IDC_EXIF_EDIT_TIME          1158
+#define IDC_EXIF_DTP_DATE           1157
+#define IDC_EXIF_DTP_TIME           1158
+#define IDC_EXIF_RADIO_OFFSET       1159
+#define IDC_EXIF_COMBO_OFFSET_SIGN  1160
+#define IDC_EXIF_EDIT_OFFSET_DAYS   1161
+#define IDC_EXIF_EDIT_OFFSET_HOURS  1162
+#define IDC_EXIF_EDIT_OFFSET_MINS   1163
+#define IDC_EXIF_EDIT_OFFSET_SECS   1164
+#define IDC_EXIF_RADIO_FILENAME     1165
+#define IDC_EXIF_CHK_SYNC_FILETIME  1166
+#define IDC_EXIF_BTN_APPLY_PREVIEW  1167
+#define IDC_EXIF_PROGRESS           1168
+#define IDC_EXIF_STATIC_STATUS      1169
+#define IDC_EXIF_BTN_EXECUTE        1170
+#define IDC_EXIF_BTN_REMOVE_SEL     1171
+#define IDC_EXIF_BTN_SELECT_ALL     1172
+#define IDC_EXIF_BTN_DESELECT       1173
+#define IDC_EXIF_BTN_ADD_FILES      1174
+#define IDC_EXIF_BTN_FULLSCREEN     1175
+#define IDC_EXIF_STATIC_SUMMARY     1176
+
+// Fast Organizer Dialog
+#define IDD_ORGANIZER               1180
+
+// Main Dashboard Control IDs
+#define IDC_MAIN_TITLE              1181
+#define IDC_MAIN_SUBTITLE           1182
+#define IDC_MAIN_DESC_ORGANIZER     1183
+#define IDC_MAIN_DESC_DUP           1184
+#define IDC_MAIN_DESC_RESIZED       1185
+#define IDC_MAIN_DESC_GPS           1186
+#define IDC_MAIN_DESC_EXIF          1187
+#define IDC_MAIN_FOOTER             1188
 
 #ifndef IDC_STATIC
 #define IDC_STATIC                  -1
 #endif
+

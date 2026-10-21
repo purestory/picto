@@ -35,3 +35,6 @@ picto/
 
 # Test runs
 test_feature_run/
+
+# Archives & portable packages
+*.zip

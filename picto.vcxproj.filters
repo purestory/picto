@@ -13,36 +13,138 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\common">
+      <UniqueIdentifier>{11111111-2222-3333-4444-555555555551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\common">
+      <UniqueIdentifier>{11111111-2222-3333-4444-555555555552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\gps">
+      <UniqueIdentifier>{22222222-3333-4444-5555-666666666661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\gps">
+      <UniqueIdentifier>{22222222-3333-4444-5555-666666666662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\dedup">
+      <UniqueIdentifier>{33333333-4444-5555-6666-777777777771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\dedup">
+      <UniqueIdentifier>{33333333-4444-5555-6666-777777777772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\resized">
+      <UniqueIdentifier>{44444444-5555-6666-7777-888888888881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\resized">
+      <UniqueIdentifier>{44444444-5555-6666-7777-888888888882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\organizer">
+      <UniqueIdentifier>{55555555-6666-7777-8888-999999999991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\organizer">
+      <UniqueIdentifier>{55555555-6666-7777-8888-999999999992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\exif">
+      <UniqueIdentifier>{66666666-7777-8888-9999-000000000001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\exif">
+      <UniqueIdentifier>{66666666-7777-8888-9999-000000000002}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
+    <ClInclude Include="src\framework.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
+    <ClInclude Include="src\targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
+    <ClInclude Include="src\Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="picto.h">
+    <ClInclude Include="src\picto.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="perceptual_hash.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="src\resized\perceptual_hash.h">
+      <Filter>헤더 파일\resized</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="src\common\stb_image.h">
+      <Filter>헤더 파일\common</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image_resize2.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="src\common\stb_image_resize2.h">
+      <Filter>헤더 파일\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\utils.h">
+      <Filter>헤더 파일\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\preview_renderer.h">
+      <Filter>헤더 파일\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gps\gps_engine.h">
+      <Filter>헤더 파일\gps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gps\gps_dialog.h">
+      <Filter>헤더 파일\gps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dedup\dedup_engine.h">
+      <Filter>헤더 파일\dedup</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dedup\dup_cleaner_dialog.h">
+      <Filter>헤더 파일\dedup</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resized\resized_cleaner_dialog.h">
+      <Filter>헤더 파일\resized</Filter>
+    </ClInclude>
+    <ClInclude Include="src\organizer\date_extractor.h">
+      <Filter>헤더 파일\organizer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\organizer\organizer_engine.h">
+      <Filter>헤더 파일\organizer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\exif\exif_modifier.h">
+      <Filter>헤더 파일\exif</Filter>
+    </ClInclude>
+    <ClInclude Include="src\exif\exif_editor_dialog.h">
+      <Filter>헤더 파일\exif</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="picto.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="stb_impl.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="src\common\stb_impl.cpp">
+      <Filter>소스 파일\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\utils.cpp">
+      <Filter>소스 파일\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\preview_renderer.cpp">
+      <Filter>소스 파일\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gps\gps_engine.cpp">
+      <Filter>소스 파일\gps</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gps\gps_dialog.cpp">
+      <Filter>소스 파일\gps</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dedup\dedup_engine.cpp">
+      <Filter>소스 파일\dedup</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dedup\dup_cleaner_dialog.cpp">
+      <Filter>소스 파일\dedup</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resized\resized_cleaner_dialog.cpp">
+      <Filter>소스 파일\resized</Filter>
+    </ClCompile>
+    <ClCompile Include="src\organizer\date_extractor.cpp">
+      <Filter>소스 파일\organizer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\organizer\organizer_engine.cpp">
+      <Filter>소스 파일\organizer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exif\exif_modifier.cpp">
+      <Filter>소스 파일\exif</Filter>
+    </ClCompile>
+    <ClCompile Include="src\exif\exif_editor_dialog.cpp">
+      <Filter>소스 파일\exif</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

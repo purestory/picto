@@ -28,30 +28,36 @@ END
 //
 // GPS Map Dialog
 //
-IDD_GPSMAP DIALOGEX 0, 0, 440, 310
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "사진 GPS 위치 보기"
+IDD_GPSMAP DIALOGEX 0, 0, 680, 390
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX
+CAPTION "사진 GPS 위치 보기 & 미리보기"
 FONT 9, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "", IDC_TAB_GPS, "SysTabControl32", WS_TABSTOP, 7, 7, 426, 296
+    // Top Bar (Left Column Controls)
+    LTEXT           "선택 대상:", IDC_STATIC, 10, 12, 38, 12
+    EDITTEXT        IDC_GPS_BATCH_EDIT, 50, 10, 200, 14, ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "파일 선택 (다중)", IDC_GPS_SINGLE_BROWSE, 255, 9, 68, 16
+    PUSHBUTTON      "폴더 선택", IDC_GPS_BATCH_BROWSE, 327, 9, 58, 16
 
-    // Single File Tab Controls
-    GROUPBOX        "단일 파일 GPS 정보", IDC_GPS_SINGLE_GRP, 15, 30, 410, 260
-    LTEXT           "사진 파일:", IDC_STATIC, 25, 50, 45, 12
-    EDITTEXT        IDC_GPS_SINGLE_EDIT, 75, 48, 275, 14, ES_AUTOHSCROLL | ES_READONLY
-    PUSHBUTTON      "사진 선택", IDC_GPS_SINGLE_BROWSE, 355, 47, 60, 15
-    LTEXT           "GPS 정보: 없음", IDC_GPS_SINGLE_INFO, 25, 75, 390, 16
-    PUSHBUTTON      "지도에서 보기", IDC_GPS_SINGLE_VIEW, 25, 100, 100, 20, WS_DISABLED
+    // Common Unified GPS List Control
+    CONTROL         "", IDC_GPS_BATCH_LIST, "SysListView32", LVS_REPORT | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 10, 30, 380, 298
 
-    // Batch Tab Controls
-    GROUPBOX        "폴더 내 사진 GPS 일괄 검색", IDC_GPS_BATCH_GRP, 15, 30, 410, 260
-    LTEXT           "폴더 경로:", IDC_STATIC, 25, 50, 45, 12
-    EDITTEXT        IDC_GPS_BATCH_EDIT, 75, 48, 275, 14, ES_AUTOHSCROLL | ES_READONLY
-    PUSHBUTTON      "폴더 선택", IDC_GPS_BATCH_BROWSE, 355, 47, 60, 15
-    LTEXT           "GPS 정보가 있는 파일 목록:", IDC_STATIC, 25, 70, 150, 10
-    CONTROL         "", IDC_GPS_BATCH_LIST, "SysListView32", LVS_REPORT | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 25, 85, 390, 170
-    PUSHBUTTON      "GPS 정보 스캔", IDC_GPS_BATCH_SCAN, 25, 262, 100, 20
-    PUSHBUTTON      "모두 지도에서 보기", IDC_GPS_BATCH_VIEWALL, 135, 262, 110, 20, WS_DISABLED
+    // Bottom Status, Progress & Action Buttons
+    LTEXT           "대기 중: '파일 선택'으로 사진(다중)을 추가하거나 '폴더 선택' 시 자동으로 스캔됩니다.", IDC_GPS_BATCH_STATUS, 10, 332, 380, 10
+    CONTROL         "", IDC_GPS_BATCH_PROGRESS, "msctls_progress32", PBS_SMOOTH, 10, 345, 380, 12
+    PUSHBUTTON      "스캔 중지", IDC_GPS_BATCH_STOP, 10, 363, 55, 18, WS_DISABLED
+    PUSHBUTTON      "목록 지우기", IDC_GPS_BTN_CLEAR, 70, 363, 60, 18
+    PUSHBUTTON      "선택 항목 Google 지도", IDC_GPS_BATCH_VIEWALL, 135, 363, 115, 18, WS_DISABLED
+    LTEXT           "스레드:", IDC_GPS_LBL_THREADS, 258, 366, 26, 12
+    COMBOBOX        IDC_GPS_COMBO_THREADS, 286, 363, 75, 100, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    // Right Side Preview Controls (Common / Persistent)
+    GROUPBOX        "사진 미리보기", IDC_GPS_PREVIEW_GRP, 400, 7, 270, 376
+    CONTROL         "", IDC_GPS_PREVIEW_PIC, "Static", SS_OWNERDRAW, 410, 25, 250, 250
+    LTEXT           "해상도 / 용량: 선택 안 됨", IDC_GPS_PREVIEW_INFO, 410, 282, 250, 12
+    LTEXT           "GPS 좌표: 선택 안 됨", IDC_GPS_PREVIEW_COORD, 410, 298, 250, 16
+    LTEXT           "경로: -", IDC_GPS_PREVIEW_PATH, 410, 318, 250, 24
+    PUSHBUTTON      "Google 지도에서 보기", IDC_GPS_PREVIEW_BTN_MAP, 410, 348, 130, 22, WS_DISABLED
 END
 
 /////////////////////////////////////////////////////////////////////////////
@@ -68,7 +74,9 @@ BEGIN
     PUSHBUTTON      "폴더 선택", IDC_RESIZED_BTN_BROWSE, 312, 9, 50, 15
     PUSHBUTTON      "🔍 탐색 시작", IDC_RESIZED_BTN_SCAN, 366, 9, 55, 15
 
-    LTEXT           "상태: 대기 중", IDC_RESIZED_STATIC_STATUS, 10, 30, 350, 10
+    LTEXT           "상태: 대기 중", IDC_RESIZED_STATIC_STATUS, 10, 30, 235, 10
+    LTEXT           "스레드:", IDC_RESIZED_LBL_THREADS, 250, 30, 26, 10
+    COMBOBOX        IDC_RESIZED_COMBO_THREADS, 278, 27, 82, 100, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "중지", IDC_RESIZED_BTN_STOP, 366, 27, 55, 14, WS_DISABLED
     CONTROL         "", IDC_RESIZED_PROGRESS, "msctls_progress32", PBS_SMOOTH, 10, 43, 411, 12
 
@@ -113,7 +121,9 @@ BEGIN
     PUSHBUTTON      "폴더 선택", IDC_DUP_BTN_BROWSE, 312, 9, 50, 15
     PUSHBUTTON      "🔍 탐색 시작", IDC_DUP_BTN_SCAN, 366, 9, 55, 15
 
-    LTEXT           "상태: 대기 중", IDC_DUP_STATIC_STATUS, 10, 30, 350, 10
+    LTEXT           "상태: 대기 중", IDC_DUP_STATIC_STATUS, 10, 30, 235, 10
+    LTEXT           "스레드:", IDC_DUP_LBL_THREADS, 250, 30, 26, 10
+    COMBOBOX        IDC_DUP_COMBO_THREADS, 278, 27, 82, 100, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "중지", IDC_DUP_BTN_STOP, 366, 27, 55, 14, WS_DISABLED
     CONTROL         "", IDC_DUP_PROGRESS, "msctls_progress32", PBS_SMOOTH, 10, 43, 411, 12
 
@@ -143,3 +153,101 @@ BEGIN
     CONTROL         "", IDC_DUP_PREVIEW_ORIG, "Static", SS_OWNERDRAW | WS_CHILD | WS_VISIBLE, 440, 202, 220, 150
     LTEXT           "기준 원본: 선택 안 됨", IDC_DUP_LBL_ORIG_INFO, 440, 356, 220, 12, SS_LEFTNOWORDWRAP
 END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// EXIF Date Editor Dialog
+//
+IDD_EXIF_EDITOR DIALOGEX 0, 0, 680, 415
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX
+CAPTION "사진 EXIF 촬영일시 일괄 수정 (탐색기 우클릭 연동 & 초고속 무손실 수정)"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "대상 파일 목록:", IDC_STATIC, 10, 10, 55, 12
+    LTEXT           "0개 파일 선택됨", IDC_EXIF_STATIC_SUMMARY, 68, 10, 180, 12
+    PUSHBUTTON      "+ 파일 추가", IDC_EXIF_BTN_ADD_FILES, 255, 8, 55, 14
+    PUSHBUTTON      "선택 제거", IDC_EXIF_BTN_REMOVE_SEL, 314, 8, 50, 14
+    PUSHBUTTON      "전체 선택", IDC_EXIF_BTN_SELECT_ALL, 368, 8, 45, 14
+    PUSHBUTTON      "전체 해제", IDC_EXIF_BTN_DESELECT, 417, 8, 45, 14
+
+    CONTROL         "", IDC_EXIF_LIST, "SysListView32", LVS_REPORT | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 10, 26, 452, 206
+
+    GROUPBOX        "EXIF 촬영일시 변경 방식 설정", IDC_EXIF_GRP_OPTIONS, 10, 236, 452, 102
+    AUTORADIOBUTTON "1. 지정된 일시로 일괄 변경:", IDC_EXIF_RADIO_EXACT, 18, 250, 112, 12, WS_GROUP
+    EDITTEXT        IDC_EXIF_EDIT_DATE, 134, 248, 64, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EXIF_EDIT_TIME, 202, 248, 52, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT           "(예: 181024, 18-10-24, 20181024, 2018-10-24)", IDC_STATIC, 260, 250, 198, 10
+
+    AUTORADIOBUTTON "2. 기존 일시에서 시간 증감 (시차 보정):", IDC_EXIF_RADIO_OFFSET, 18, 268, 148, 12
+    COMBOBOX        IDC_EXIF_COMBO_OFFSET_SIGN, 170, 266, 32, 60, CBS_DROPDOWNLIST | WS_TABSTOP
+    EDITTEXT        IDC_EXIF_EDIT_OFFSET_DAYS, 206, 266, 24, 14, ES_NUMBER
+    LTEXT           "일", IDC_STATIC, 232, 268, 10, 10
+    EDITTEXT        IDC_EXIF_EDIT_OFFSET_HOURS, 245, 266, 24, 14, ES_NUMBER
+    LTEXT           "시", IDC_STATIC, 271, 268, 10, 10
+    EDITTEXT        IDC_EXIF_EDIT_OFFSET_MINS, 284, 266, 24, 14, ES_NUMBER
+    LTEXT           "분", IDC_STATIC, 310, 268, 10, 10
+    EDITTEXT        IDC_EXIF_EDIT_OFFSET_SECS, 323, 266, 24, 14, ES_NUMBER
+    LTEXT           "초", IDC_STATIC, 349, 268, 10, 10
+
+    AUTORADIOBUTTON "3. 파일명에서 날짜 패턴 자동 추출 (예: IMG_20230514_153022)", IDC_EXIF_RADIO_FILENAME, 18, 286, 255, 12
+    AUTOCHECKBOX    "☑ 파일 시스템의 수정일시(LastWriteTime) 및 생성일시(CreationTime)도 함께 변경", IDC_EXIF_CHK_SYNC_FILETIME, 18, 304, 305, 12
+    PUSHBUTTON      "변경 예정일시 목록에 반영", IDC_EXIF_BTN_APPLY_PREVIEW, 328, 302, 126, 16
+
+    LTEXT           "대기 중", IDC_EXIF_STATIC_STATUS, 10, 342, 452, 10
+    CONTROL         "", IDC_EXIF_PROGRESS, "msctls_progress32", PBS_SMOOTH, 10, 354, 452, 12
+
+    DEFPUSHBUTTON   "💾 선택한 사진의 EXIF 날짜 일괄 변경 실행", IDC_EXIF_BTN_EXECUTE, 10, 374, 230, 24
+    PUSHBUTTON      "🗖 전체화면", IDC_EXIF_BTN_FULLSCREEN, 335, 374, 60, 24
+    PUSHBUTTON      "닫기", IDCANCEL, 400, 374, 62, 24
+
+    // Right-side Preview Area
+    GROUPBOX        "사진 미리보기", IDC_EXIF_PREVIEW_GRP, 468, 10, 202, 388
+    CONTROL         "", IDC_EXIF_PREVIEW_PIC, "Static", SS_OWNERDRAW | WS_CHILD | WS_VISIBLE, 476, 26, 186, 220
+    LTEXT           "선택된 파일 정보", IDC_EXIF_PREVIEW_INFO, 476, 254, 186, 136
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Fast Organizer Dialog
+//
+IDD_ORGANIZER DIALOGEX 0, 0, 550, 365
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX
+CAPTION "⚡ 고속 파일 정리"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    // 1. Folder Selection Group
+    GROUPBOX        "폴더 설정", IDC_GRP_FOLDER, 10, 8, 530, 60
+    LTEXT           "입력 폴더:", IDC_STATIC_LBL_INPUT, 18, 24, 40, 12
+    EDITTEXT        IDC_EDIT_INPUT, 62, 22, 396, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "선택", IDC_BTN_BROWSE_INPUT, 464, 21, 66, 16
+
+    LTEXT           "출력 폴더:", IDC_STATIC_LBL_OUTPUT, 18, 44, 40, 12
+    EDITTEXT        IDC_EDIT_OUTPUT, 62, 42, 396, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "선택", IDC_BTN_BROWSE_OUTPUT, 464, 41, 66, 16
+
+    // 2. Options Group
+    GROUPBOX        "처리 옵션", IDC_GRP_OPTS, 10, 72, 530, 42
+    LTEXT           "정리 방식:", IDC_STATIC_LBL_FOLDER_FORMAT, 18, 86, 50, 12, SS_LEFTNOWORDWRAP
+    COMBOBOX        IDC_COMBO_FOLDER_FORMAT, 70, 84, 135, 140, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "파일 복사 (기본: 이동)", IDC_CHK_COPY_FILES, 215, 86, 135, 12
+    AUTOCHECKBOX    "동일 중복 파일 자동 정리", IDC_CHK_REMOVE_DUPS, 360, 86, 160, 12
+
+    // 3. Progress & Status Group
+    GROUPBOX        "진행 상황", IDC_GRP_PROGRESS, 10, 118, 530, 62
+    LTEXT           "대기 중: 폴더를 지정한 후 '고속 정리 시작' 버튼을 누르세요.", IDC_STATIC_STATUS, 18, 132, 514, 10
+    CONTROL         "", IDC_PROGRESS_BAR, "msctls_progress32", PBS_SMOOTH, 18, 144, 514, 12
+    LTEXT           "처리된 파일: 0", IDC_STATIC_STAT_PROCESSED, 18, 162, 125, 12
+    LTEXT           "이동된 파일: 0", IDC_STATIC_STAT_MOVED, 146, 162, 125, 12
+    LTEXT           "중복 제거: 0", IDC_STATIC_STAT_DUPS, 274, 162, 125, 12
+    LTEXT           "처리 속도: 0.0 파일/초", IDC_STATIC_STAT_SPEED, 402, 162, 125, 12
+
+    // 4. Real-time Log Group
+    GROUPBOX        "실시간 처리 로그", IDC_GRP_LOG, 10, 184, 530, 142
+    EDITTEXT        IDC_EDIT_LOG, 18, 198, 514, 120, WS_VSCROLL | ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY
+
+    // 5. Bottom Actions
+    DEFPUSHBUTTON   "🚀 고속 정리 시작", IDC_BTN_START, 10, 334, 140, 22
+    PUSHBUTTON      "❌ 중지", IDC_BTN_CANCEL, 156, 334, 70, 22, WS_DISABLED
+    PUSHBUTTON      "닫기", IDCANCEL, 470, 334, 70, 22
+END
+

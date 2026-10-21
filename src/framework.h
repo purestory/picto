@@ -15,6 +15,8 @@
 #include <commdlg.h>
 #include <shlobj.h>
 #include <shlwapi.h>
+#include <propsys.h>
+#include <propkey.h>
 
 // WIC (Windows Imaging Component) and CryptoAPI
 #include <wincodec.h>
@@ -47,4 +49,5 @@
 #pragma comment(lib, "advapi32.lib")
 #pragma comment(lib, "windowscodecs.lib")
 #pragma comment(lib, "imm32.lib")
+#pragma comment(lib, "propsys.lib")
 #include <imm.h>

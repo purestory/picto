@@ -47,10 +47,10 @@
 - **복원 가능한 안전 삭제**: 영구 삭제(`DeleteFileW`) 대신 `SHFileOperationW` + `FOF_ALLOWUNDO` 플래그를 사용하여 삭제된 모든 파일은 Windows 휴지통으로 이동
 - **시각적 인덱스 분리 (`Visible Index Decoupling`)**: 제외 필터로 숨겨진 항목은 전체 선택 및 일괄 삭제 대상에서 완벽히 배제되어 안전하게 보호
 
-### 7. 🗺️ 대화형 GPS 위치 지도 시각화
-- WIC 메타데이터 리더를 통한 사진 EXIF 위도/경도(GPS) 좌표 추출
-- 단일 파일 지도 보기 및 폴더 일괄 GPS 스캔 지원
-- OpenStreetMap + Leaflet.js 기반 대화형 웹 지도 연동
+### 7. 🗺️ 대화형 GPS 위치 보기 & Google 지도 연동
+- **3단계 하이브리드 GPS 추출 엔진**: Direct APP1 EXIF 바이너리 파서(0.005ms) + Windows Shell Property System(HEIC/TIFF/PNG/RAW/WebP) + Enhanced WIC Fallback
+- **Google 지도(Google Maps) 직결**: 단일 사진 및 폴더 일괄 검색 후 클릭/더블클릭 시 브라우저에서 공식 Google 지도로 즉시 연결
+- **실시간 반응형 진행 피드백**: 프로그레스 바 + 실시간 발견 항목 스트리밍 삽입 + 스캔 중지(Cancel) 지원 및 창 크기 조절 대응
 
 ---
 
@@ -72,20 +72,39 @@
 
 ```
 picto/
-├── picto.sln                # Visual Studio 2022 솔루션 파일
-├── picto.vcxproj            # MSBuild 프로젝트 파일
-├── picto.vcxproj.filters    # 프로젝트 필터 설정
-├── picto.cpp                # 메인 UI 및 다중 스레드 백엔드 로직
-├── picto.h                  # 메인 헤더 및 전역 구조체 정의
-├── framework.h              # Win32/WIC/IMM32/C++ 표준 헤더 구성
-├── perceptual_hash.h        # 2D-DCT 지각 해시(pHash) 알고리즘 구현
-├── Resource.h               # 리소스 ID 정의
-├── picto.rc                 # 다이얼로그 및 UI 리소스 스크립트
-├── stb_image.h              # 고성능 이미지 디코딩 라이브러리
-├── stb_image_resize2.h      # 고속 이미지 리사이즈 라이브러리
-├── stb_impl.cpp             # stb 라이브러리 구현체
-├── picto.ico                # 애플리케이션 메인 아이콘
-└── README.md                # 프로젝트 문서
+├── picto.sln                     # Visual Studio 2022 솔루션 파일
+├── picto.vcxproj                 # MSBuild 프로젝트 파일
+├── picto.vcxproj.filters         # 프로젝트 필터 설정
+├── picto.rc                      # 다이얼로그 및 UI 리소스 스크립트
+├── picto.ico                     # 애플리케이션 메인 아이콘
+├── GEMINI.md                     # AI 개발 행동 강령 및 재발 방지 지침
+├── README.md                     # 프로젝트 문서
+└── src/                          # 모듈형 C++ 소스 코드
+    ├── main.cpp                  # 메인 윈도우 UI 및 런처 진입점
+    ├── picto.h / Resource.h      # 공통 헤더 및 리소스 정의
+    ├── common/                   # 공통 유틸리티 & 이미지 라이브러리
+    │   ├── framework.h           # Win32/WIC/COM/C++ 표준 헤더
+    │   ├── utils.h / utils.cpp   # DPI 스케일링, 폰트, 공통 헬퍼
+    │   ├── stb_image.h           # 고속 이미지 디코더
+    │   ├── stb_image_resize2.h   # 고속 이미지 리사이저
+    │   └── stb_impl.cpp          # stb 구현체
+    ├── organizer/                # 고속 파일 정리 엔진 & 전용 다이얼로그
+    │   ├── organizer_engine.h/.cpp
+    │   └── date_extractor.h/.cpp # 3단계 하이브리드 날짜 추출기
+    ├── dedup/                    # RAM 기반 3단계 제로카피 중복 파일 탐색기
+    │   ├── dedup_engine.h/.cpp
+    │   └── dup_cleaner_dialog.h/.cpp
+    ├── resized/                  # pHash 2D-DCT 축소(리사이즈) 사진 탐색기
+    │   ├── perceptual_hash.h
+    │   └── resized_cleaner_dialog.h/.cpp
+    ├── gps/                      # 대화형 GPS 위치 추출 & Google 지도 연동
+    │   ├── gps_engine.h/.cpp
+    │   └── gps_dialog.h/.cpp
+    ├── exif/                     # 초고속 무손실 EXIF 날짜 직접 바이너리 패치
+    │   ├── exif_modifier.h/.cpp
+    │   └── exif_editor_dialog.h/.cpp
+    └── preview/                  # Owner-Draw 더블 버퍼링 미리보기 렌더러
+        └── preview_renderer.h/.cpp
 ```
 
 ---
